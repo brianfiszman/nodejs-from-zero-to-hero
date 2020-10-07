@@ -22,6 +22,7 @@ app.listen(port, () => {
   db.once("open", function () {
     console.log("me conecté!");
   });
+  // comentario magico
 });
 
 /*
