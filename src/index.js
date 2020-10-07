@@ -1,28 +1,24 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const { connectionUri } = require("./config/env");
 const router = require("./routes");
 
 const app = express();
 const port = process.env.PORT;
-const mongohost = process.env.MONGO_HOST;
-const mongopass = process.env.MONGO_PASS;
-const mongoport = process.env.MONGO_PORT;
-const mongodb = process.env.MONGO_DB;
 
-app.use(router);
+console.log(connectionUri);
 
-mongoose.connect("mongodb://" + mongohost + "/" + mongodb, {
-  useNewUrlParser: true
+mongoose.connect(connectionUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
 });
+
+app.use(bodyParser.json());
+app.use(router);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
-  const db = mongoose.connection;
-  db.on("error", console.error.bind(console, "connection error:"));
-  db.once("open", function () {
-    console.log("me conecté!");
-  });
-  // comentario magico
 });
 
 /*
