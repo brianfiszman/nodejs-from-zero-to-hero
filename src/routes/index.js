@@ -14,4 +14,10 @@ router.post("/posts", postController.create);
 router.put("/posts/:name", postController.update);
 router.delete("/posts/:name", postController.destroy);
 
+router.get("/users", userController.index);
+router.get("/users/:username", userController.show);
+router.post("/users", userController.create);
+router.put("/users/:username", userController.update);
+router.delete("/users/:username", userController.destroy);
+
 module.exports = router;
