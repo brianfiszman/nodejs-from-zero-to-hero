@@ -42,7 +42,7 @@ class userController {
       const { username } = req.params;
       const { newPassword } = req.body;
 
-      const user = await User.updateOne({ username }, { username: newName });
+      const user = await User.updateOne({ username }, { password: newPassword });
 
       res.send(user);
     } catch (e) {
