@@ -1,6 +1,6 @@
 const User = require("../models/user");
 
-class userController {
+class UserController {
   async index(req, res) {
     try {
       const user = await User.find();
