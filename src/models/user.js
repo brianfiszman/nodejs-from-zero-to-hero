@@ -1,4 +1,6 @@
+const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
+const { saltRounds } = require("../config/env");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -16,4 +18,17 @@ const UserSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("user", UserSchema);
+
+UserSchema.pre("save", async function (next) {
+  const user = await User.findOne({ username: this.username });
+
+  if (user) throw new Error("User already exists"); 
+
+  this.password = bcrypt.hashSync(this.password, saltRounds);
+
+  next();  
+});
+
+const User = mongoose.model("user", UserSchema);
+
+module.exports = User;

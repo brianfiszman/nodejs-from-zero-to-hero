@@ -7,8 +7,7 @@ class UserController {
 
       res.json(user);
     } catch (e) {
-      console.log(e);
-      res.status(500).send("Something broke!");
+      res.status(500).send(e.message);
     }
   }
 
@@ -19,8 +18,7 @@ class UserController {
 
       res.json(user);
     } catch (e) {
-      console.log(e);
-      res.status(500).send("Something broke!");
+      res.status(500).send(e.message);
     }
   }
 
@@ -32,8 +30,7 @@ class UserController {
 
       res.send("The user has been created.");
     } catch (e) {
-      console.log(e);
-      res.status(500).send("Something broke!");
+      res.status(500).send(e.message);
     }
   }
 
@@ -46,7 +43,7 @@ class UserController {
 
       res.send(user);
     } catch (e) {
-      res.status(500).send("Something broke!");
+      res.status(500).send(e.message);
     }
   }
 
