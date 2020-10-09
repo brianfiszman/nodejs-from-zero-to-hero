@@ -1,5 +1,7 @@
-const User = require("../models/user");
 const bcrypt = require('bcrypt');
+const User = require("../models/user");
+
+const saltRounds = 10;
 
 class UserController {
   async index(req, res) {
@@ -27,7 +29,6 @@ class UserController {
 
   async create(req, res) {
     try {
-      const saltRounds = 10;
       const username = req.body.username;
       const password = bcrypt.hashSync(req.body.password, saltRounds);
 
