@@ -1,7 +1,4 @@
-const bcrypt = require('bcrypt');
 const User = require("../models/user");
-
-const saltRounds = 10;
 
 class UserController {
   async index(req, res) {
@@ -10,8 +7,7 @@ class UserController {
 
       res.json(user);
     } catch (e) {
-      console.log(e);
-      res.status(500).send("Something broke!");
+      res.status(500).send(e.message);
     }
   }
 
@@ -22,22 +18,19 @@ class UserController {
 
       res.json(user);
     } catch (e) {
-      console.log(e);
-      res.status(500).send("Something broke!");
+      res.status(500).send(e.message);
     }
   }
 
   async create(req, res) {
     try {
-      const username = req.body.username;
-      const password = bcrypt.hashSync(req.body.password, saltRounds);
+      const { username, password } = req.body;
 
       await User.create({ username, password });
 
       res.send("The user has been created.");
     } catch (e) {
-      console.log(e);
-      res.status(500).send("Something broke!");
+      res.status(500).send(e.message);
     }
   }
 
@@ -50,7 +43,7 @@ class UserController {
 
       res.send(user);
     } catch (e) {
-      res.status(500).send("Something broke!");
+      res.status(500).send(e.message);
     }
   }
 
