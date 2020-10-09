@@ -29,6 +29,13 @@ UserSchema.pre("save", async function (next) {
   next();  
 });
 
+
+UserSchema.statics.checkCredentials = async function (username, password) {
+  user = await this.find({username});
+  
+  return bcrypt.hashSync(password, saltRounds) === user.password;
+}
+
 const User = mongoose.model("user", UserSchema);
 
 module.exports = User;
